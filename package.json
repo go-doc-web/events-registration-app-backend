@@ -1,0 +1,24 @@
+{
+  "name": "events-registration-app-backend",
+  "version": "1.0.0",
+  "description": "Web-based application for events registration.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "express",
+    "node.js",
+    "mongoDB",
+    "mongoose"
+  ],
+  "author": "Hubskiy Oleh <gubskyolegod@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.5",
+    "nodemon": "^3.1.0"
+  }
+}
