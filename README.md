@@ -14,7 +14,7 @@
 
 ## Ссылка на репозиторий
 
-Исходный код доступен на GitHub по следующей ссылке: [Events Registration App Backend](ссылка_на_репозиторий)
+Исходный код доступен на GitHub по следующей ссылке: [Events Registration App Backend](https://github.com/go-doc-web/events-registration-app-backend)
 
 ## API Endpoints
 
