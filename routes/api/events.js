@@ -9,6 +9,13 @@ router.get("/", async (req, res) => {
   const { page, pageSize } = req.query;
 
   try {
+    if (!page || !pageSize) {
+      return res
+        .status(400)
+        .json({
+          message: "Page and pageSize query parameters are required!!!!",
+        });
+    }
     const data = await getEventsAll(page, pageSize);
 
     res.status(200).json(data);
