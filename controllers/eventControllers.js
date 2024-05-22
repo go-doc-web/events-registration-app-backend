@@ -1,4 +1,5 @@
 const Event = require("../models/events");
+const Participant = require("../models/participant");
 
 const getEventsAll = async (page, pageSize) => {
   try {
@@ -25,6 +26,44 @@ const getEventsAll = async (page, pageSize) => {
   }
 };
 
+const createParticipant = async (
+  eventId,
+  { fullName, email, birthDate, source }
+) => {
+  try {
+    const event = await Event.findById(eventId);
+    if (!event) {
+      throw new Error("Событие не найдено");
+    }
+
+    return await Participant.create({
+      fullName,
+      email,
+      birthDate,
+      source,
+      eventId,
+    });
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+const getParticipants = async (eventId) => {
+  try {
+    const event = await Event.findById(eventId);
+    if (!event) {
+      throw new Error("Событие не найдено");
+    }
+
+    const participants = await Participant.find({ eventId });
+
+    return participants;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
 module.exports = {
   getEventsAll,
+  createParticipant,
+  getParticipants,
 };

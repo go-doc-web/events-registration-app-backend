@@ -1,7 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const Event = require("../../models/events");
-const { getEventsAll } = require("../../controllers/eventControllers");
+
+const {
+  getEventsAll,
+  createParticipant,
+  getParticipants,
+} = require("../../controllers/eventControllers");
 
 const eventsData = require("../../data/eventsDB");
 
@@ -10,11 +14,9 @@ router.get("/", async (req, res) => {
 
   try {
     if (!page || !pageSize) {
-      return res
-        .status(400)
-        .json({
-          message: "Page and pageSize query parameters are required!!!!",
-        });
+      return res.status(400).json({
+        message: "Page and pageSize query parameters are required!!!!",
+      });
     }
     const data = await getEventsAll(page, pageSize);
 
@@ -23,16 +25,50 @@ router.get("/", async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
-router.get("/:eventId", (req, res) => {});
 
-router.post("/", async (req, res) => {
-  const body = req.body;
+router.post("/:eventId/register", async (req, res) => {
+  const { eventId } = req.params;
+  const { fullName, email, birthDate, source } = req.body;
+
   try {
-    const newEvent = await Event.create(body);
-    res.status(201).json(newEvent);
+    const participant = await createParticipant(eventId, {
+      fullName,
+      email,
+      birthDate,
+      source,
+    });
+
+    await participant.save();
+    res.status(201).send(participant);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(400).send(error.message);
+  }
+});
+
+router.get("/:eventId/participants", async (req, res) => {
+  const { eventId } = req.params;
+
+  try {
+    // const event = await Event.findById({ eventId });
+    // if (!event) {
+    //   return res.status(404).send({ message: "Событие не найдено" });
+    // }
+
+    const participants = await getParticipants(eventId);
+    res.status(200).send(participants);
+  } catch (error) {
+    res.status(400).send(error.message);
   }
 });
 
 module.exports = router;
+
+// router.post("/", async (req, res) => {
+//   const body = req.body;
+//   try {
+//     const newEvent = await Event.create(body);
+//     res.status(201).json(newEvent);
+//   } catch (error) {
+//     res.status(400).json({ message: error.message });
+//   }
+// });
