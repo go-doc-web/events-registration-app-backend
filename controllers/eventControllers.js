@@ -47,11 +47,12 @@ const createParticipant = async (
     throw new Error(error.message);
   }
 };
+
 const getParticipants = async (eventId) => {
   try {
     const event = await Event.findById(eventId);
     if (!event) {
-      throw new Error("Событие не найдено");
+      throw new Error("Event not found");
     }
 
     const participants = await Participant.find({ eventId });
