@@ -8,6 +8,7 @@ const {
 } = require("../../controllers/eventControllers");
 
 const eventsData = require("../../data/eventsDB");
+const Event = require("../../models/events");
 
 router.get("/", async (req, res) => {
   const { page, pageSize } = req.query;
@@ -60,6 +61,15 @@ router.get("/:eventId/participants", async (req, res) => {
     res.status(400).send(error.message);
   }
 });
+// router.get("/", async (req, res) => {
+//   try {
+//     const data = await Event.find({});
+
+//     res.status(200).json(data);
+//   } catch (error) {
+//     res.status(400).json({ message: error.message });
+//   }
+// });
 
 module.exports = router;
 
