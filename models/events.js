@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-// Определение схемы события
 const eventSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -12,7 +11,7 @@ const eventSchema = new mongoose.Schema({
   },
   eventDate: {
     type: Date,
-    default: Date.now, // Установка текущей даты и времени по умолчанию
+    default: Date.now,
   },
   organizer: {
     type: String,
@@ -20,7 +19,6 @@ const eventSchema = new mongoose.Schema({
   },
 });
 
-// Создание модели события на основе схемы
 const Event = mongoose.model("event", eventSchema);
 
 module.exports = Event;
